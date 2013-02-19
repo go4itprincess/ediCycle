@@ -1,0 +1,47 @@
+<html>
+	<head>
+		<title>
+			bike safer
+		</title>
+		
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+		
+		<link href="css/penIsYellow.css" rel="stylesheet" type="text/css"  />
+		<script src="js/penIsBlack.js" ></script>
+
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+		<script src="js/map.js" ></script>
+		
+	</head>
+	
+	<body>
+		<div class="all">
+			<img src="images/logo1.png" class="logo"/>
+			<div  class="input-form">
+				<form action="get_polylines.php" name="route_form" method="POST">
+					<div id="origin-label" class="label">
+						<label for="origin">
+							Origin:
+						</label>
+					</div>
+					<div id="origin-box">
+						<input type="text" name="origin"  class="input"/>
+					</div>
+					<div id="destination-label" class="label">
+						<label for="destination">
+							Destination:
+						</label>
+					</div>
+					<div id="destination-box">
+						<input type="text" name="destination"  class="input"/>
+					</div>
+					<input type="submit" value="Submit" name="submit" onClick="return show_route_json()" />
+				</form>
+			</div>
+		</div>
+		
+    <div id="map_canvas"></div>
+		<div id="polylines"></div>
+
+	</body>
+</html>

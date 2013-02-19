@@ -1,0 +1,48 @@
+img.logo
+{    
+	display: block;
+	top:0px;
+	margin-left: auto;
+	margin-right: auto;
+	z-index:2;
+}
+div.input-form
+{
+	display: block;
+	width:200px;
+	margin-left: auto;
+	margin-right: auto;
+}	
+body
+{
+	background: #B2ADAD ;
+}
+div.all
+{
+	width: 320px;
+	background: #FF9A0D ;
+	-moz-border-radius: 15px;
+	border-radius: 15px;			
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center ;
+	border-style:outset;
+	border-width:medium;
+}
+.input
+{
+	border-style:inset;
+	-moz-border-radius: 5px;
+	border-radius: 5px;		
+}
+#map_canvas
+{
+	width: 800px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;			
+	margin-left: auto;
+	margin-right: auto;
+	border-style:outset;
+	border-width:medium;
+	height: 500px;
+}
