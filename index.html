@@ -1,24 +1,33 @@
 <html>
 	<head>
 		<title>
-			bike safer
+			ediCycle
 		</title>
 		
-		<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+		
+		<link rel="icon" type="image/x-icon" href="favicon.ico" >
+		<link rel="shortcut icon" type="image/x-icon" href="go4itprincess.modulo.zone.ee/favicon.ico">
 		
 		<link href="css/penIsYellow.css" rel="stylesheet" type="text/css"  />
 		<script src="js/penIsBlack.js" ></script>
+		<script src="js/colorConversion.js" ></script>
 
 		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 		<script src="js/map.js" ></script>
 		
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+		
 	</head>
 	
 	<body>
-		<div class="all">
-			<img src="images/logo1.png" class="logo"/>
+		<div class="put-box" id="input-form">
+			<div class="title">
+				ediCycle
+			</div>
+			<img src="images/bike2.png" class="logo"/>
 			<div  class="input-form">
-				<form action="get_polylines.php" name="route_form" method="POST">
+				<form action="" name="route_form" method="POST">
 					<div id="origin-label" class="label">
 						<label for="origin">
 							Origin:
@@ -35,13 +44,45 @@
 					<div id="destination-box">
 						<input type="text" name="destination"  class="input"/>
 					</div>
-					<input type="submit" value="Submit" name="submit" onClick="return show_route_json()" />
+					
+					<div id="unit-box">
+						<fieldset>
+							<legend>Unit system:</legend>
+							<input type="radio" name="units" id="units-metric" checked="checked">Metric
+							<br />
+							<input type="radio" name="units" id="units-imperial">Imperial
+						</fieldset>
+					</div>
+					<input type="submit" value="Submit" name="submit" onClick="return show_route_json()" class="button" />
 				</form>
+			</div>  
+			
+			<div onClick="switch_inputs()">
+				<img src="images/arrows.svg" id="switch-button" /> 
 			</div>
+			
+		</div>
+		<div class="put-box" id="output-form"></div>
+		<div id="loader">
+			<img src="/images/ajax-loader(1).gif" id="loader_gif"/>
+		</div>
+		<script>
+		    document.getElementById("input-form").style.display="block";
+		    document.getElementById("output-form").style.display="none";
+		    document.getElementById("loader").style.display="none";
+ 		</script>
+		<div class="description">
+			<span id="description">
+			Just type in a destination and a place of departure in Edinburgh, and you'll get the safest routes. The ratings are given based on records of previous accidents, and are calculated considering the length of the journey and the density of previous incidents.
+				<span id="copyright">
+				Uses Edinburgh City Council data on bike accidents.
+				Made by go4itprincess @ILW hackathon.
+					<span id="ss">
+					Who is the princess?
+					</span>
 		</div>
 		
-    <div id="map_canvas"></div>
-		<div id="polylines"></div>
+		<div id="map_canvas"></div>
 
 	</body>
 </html>

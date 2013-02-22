@@ -10,6 +10,9 @@
         
         map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
         
+        var bikeLayer = new google.maps.BicyclingLayer();
+				bikeLayer.setMap(map);
+				
       /*  var locationArray = [center];
 				var locationNameArray = ['Edinburghhhhh'];     
 		
