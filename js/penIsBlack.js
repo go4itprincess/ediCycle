@@ -60,13 +60,22 @@ function show_route_json() {
 
 
 function showRoutes (response ) {
+		
+	if (response.length<2){
+		alert("Route not found");
+		showForm();
+		return;
+	}
+	  	
+	  	console.log(response);
+	
 	var q_data = JSON.parse(response);
 	var polylines = q_data.polylines;
 	var bounds = q_data.bounds;
 	var pedestrian = q_data.pedestrian;
 	
 	var length_i = polylines.length;
-	var element = null;
+	var output_form = document.getElementById("output-form");
 	var div_html = "";
 	div_html_line = "";
 	
@@ -86,12 +95,19 @@ function showRoutes (response ) {
 	div_html_line += "<br />";
 	div_html_line += "<span id='to' class='location'>To:</span> " + pedestrian.end + "";
 	div_html_line += "<br />";
-	div_html_line += "Pedestrian safety rating: N/A";// + pedestrian.index;
 	div_html_line += "<br />";
-	div_html_line += "Pedestrian time: " + pedestrian.duration;
+	div_html_line += "<span id='ped_rating' class='location'>Pedestrian safety rating:</span> N/A";// + pedestrian.index;
 	div_html_line += "<br />";
-		
-	div_html = "<div class='output-element' id='output_info'>" + div_html_line + "</div>";
+	div_html_line += "<span id='ped_time' class='location'>Pedestrian time:</span> " + pedestrian.duration;
+	div_html_line += "<br />";
+	
+	var out_info = document.createElement('div');
+  out_info.setAttribute('id','output_info');
+  out_info.setAttribute('class','output-element');
+  out_info.innerHTML=div_html_line;
+  
+	output_form.appendChild(out_info);
+	
 	
 	route = new Array();
 	var route_data = new Array();
@@ -169,25 +185,37 @@ function showRoutes (response ) {
 //						div_html_line += "To:\t" + polyline['end'];
 //						div_html_line += "<br />";
 //						div_html_line += "Sess:\t" + polyline['sess'];
+			
+		var out_el = document.createElement('div');
+	  out_el.setAttribute('id', 'output_' + i);
+	  out_el.setAttribute('class', 'output-element');
+	  out_el.setAttribute('onMouseOver', 'highlight(' + i + ', "in")');
+	  out_el.setAttribute('onMouseOut', 'highlight(' + i + ', "out")');
+	  out_el.innerHTML=div_html_line;
 		
-		var onMouseOver = " onMouseOver='highlight(" + i + ", \"in\")' ";
-		var onMouseOut = " onMouseOut='highlight(" + i + ", \"out\")' ";
 		
-		div_html += "<div class='output-element' id='output_" + i + "' " + onMouseOver + onMouseOut + ">" + div_html_line + "</div>";
-		div_html += "<div class='output-tooltip' id='output_tooltip_" + i + "'>" + div_html_line + "</div>";
-	}
+		var out_tt = document.createElement('div'); 
+	  out_tt.setAttribute('id', 'output_tooltip_' + i);
+	  out_tt.setAttribute('class', 'output-tooltip');
+	  out_tt.innerHTML=div_html_line;
+	  
+		output_form.appendChild(out_el);
+		output_form.appendChild(out_tt);
 	
-	div_html = "" + div_html + "";
-	div_html += "<button class='button' onclick='showForm()'>I'll be back</button>";
+	}
   
+	var back_button = document.createElement('button');
+	back_button.setAttribute('id', 'back_button');
+	back_button.setAttribute('class', 'button');
+	back_button.setAttribute('onclick', 'showForm()');
+	back_button.innerHTML="I'll be back";
+	output_form.appendChild(back_button);
   
 	var ne = new google.maps.LatLng(bounds.ne.y, bounds.ne.x);
 	var sw = new google.maps.LatLng(bounds.sw.y, bounds.sw.x);
 	bounds = new google.maps.LatLngBounds(sw, ne);
 	
 	map.fitBounds(bounds);
-	
-  document.getElementById("output-form").innerHTML=div_html;
   
 	for (var k in route) {
 		document.getElementById('output_' + k ).style.backgroundColor = route[k].originalPolylineColor;

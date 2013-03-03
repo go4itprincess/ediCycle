@@ -5,6 +5,7 @@
         var mapOptions = {
 		      zoom: 12,
 		      center: center,
+		      streetViewControl: false,
 		      mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         
@@ -12,19 +13,6 @@
         
         var bikeLayer = new google.maps.BicyclingLayer();
 				bikeLayer.setMap(map);
-				
-      /*  var locationArray = [center];
-				var locationNameArray = ['Edinburghhhhh'];     
-		
-				var coord;
-	  
-			  for (coord in locationArray) {
-			  	new google.maps.Marker({
-			    position: locationArray[coord],
-			    map: map,
-			    title: locationNameArray[coord]
-			  	});
-			  }*/
         
       }
 

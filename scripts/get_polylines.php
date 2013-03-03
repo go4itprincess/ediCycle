@@ -1,10 +1,19 @@
 <?php
 include_once 'db_connect.php';
 include_once 'decode_polyline.php';
+error_reporting (0);
 
 $origin = urlencode($_POST["origin"] . ", edinburgh");
 $destination = urlencode($_POST["destination"] . ", edinburgh");
 $units = urlencode($_POST["units"]);
+
+$sql = 'INSERT INTO history (`from`, `to`) VALUES ("' . $origin . '", "' . $destination . '")';
+$mysqli->query($sql);
+$history_id = $mysqli->insert_id;
+
+if ($mysqli->errno)	{
+	die	('MySQLi error code:'	.	$mysqli->errno . "\n<br/>\n" . $mysqli->error);
+}
 
 $params = array();
 $params['origin']=$origin;
@@ -14,15 +23,43 @@ $params['units']=$units;
 $bounds = array();
 $polylines = getRoutes ($params, 'bicycling' ,'true' ,$bounds);
 $pedestrian = getRoutes ($params, 'walking', 'false' ,$bounds);
+
+$sql = 'UPDATE history 
+	SET 
+		origin =  "' . $pedestrian['start'] . '",
+		destination = "' . $pedestrian['end'] . '"
+	WHERE id = ' . $history_id;
+$mysqli->query($sql);
+
+if ($mysqli->errno)	{
+	die	('MySQLi error code:'	.	$mysqli->errno . "\n<br/>\n" . $mysqli->error);
+}
+
 $pedestrian['index']=normalize($pedestrian[0]['index']);
 $pedestrian['duration']=$pedestrian[0]['duration'];
 $pedestrian['distance']=$pedestrian[0]['distance'];
 unset($pedestrian[0]);
+	
+if ($pedestrian['start'] == "University of Edinburgh, Edinburgh, City of Edinburgh EH8, UK") {
+	$pedestrian['start']="Good to see you made it to the University";
+} else {
+	$pedestrian['start']=$pedestrian['start'];
+}
+
+if ($pedestrian['end'] == "University of Edinburgh, Edinburgh, City of Edinburgh EH8, UK") {
+	$pedestrian['end']="Going to the University is a good idea";
+} else {
+	$pedestrian['end']=$pedestrian['end'];
+}
 
 $bounds['ne']['y'] = max($bounds['ne']['y']);
 $bounds['ne']['x'] = max($bounds['ne']['x']);
 $bounds['sw']['y'] = min($bounds['sw']['y']);
 $bounds['sw']['x'] = min($bounds['sw']['x']);
+
+if ($polylines == array()){
+	die();
+}
 
 $data = array();
 $data['polylines'] = $polylines;
@@ -47,6 +84,10 @@ function getRoutes ($params, $mode, $alternatives, &$bounds) {
 	//echo $url;
 	
 	$content = json_decode(file_get_contents ($url));
+	if ($content->status == "ZERO_RESULTS") {
+		return array();
+	}
+
 	$routes	=$content->routes;
 	$polylines = array();
 	$bounds = array ();
@@ -114,17 +155,9 @@ function getRoutes ($params, $mode, $alternatives, &$bounds) {
 		$start = $start_leg->start_address;
 		$end = $end_leg->end_address;
 		
-		if ($start == "University of Edinburgh, Edinburgh, City of Edinburgh EH8, UK") {
-			$polylines['start']="Good to see you made it to the University";
-		} else {
-			$polylines['start']=$start;
-		}
-		
-		if ($end == "University of Edinburgh, Edinburgh, City of Edinburgh EH8, UK") {
-			$polylines['end']="Going to the University is a good idea";
-		} else {
-			$polylines['end']=$end;
-		}
+		$polylines['start']=$start;
+
+		$polylines['end']=$end;
 	}
 	
 	return $polylines;

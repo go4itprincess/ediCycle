@@ -1,5 +1,13 @@
 SELECT 
-	CEILING(20-9768*SUM( S.index * SQRT(POWER(C.p1x-C.p2x, 2) + POWER(C.p1y-C.p2y, 2)) )/((SELECT COUNT(*) FROM `accidents`)))/2 as rating,
+	CEILING(
+		20-9768*SUM(
+			S.index * SQRT(
+				POWER(C.p1x-C.p2x, 2) + POWER(C.p1y-C.p2y, 2)
+			)
+		 )
+		 /
+		 (SELECT COUNT(*) FROM `accidents`)
+		)/2 as rating,
 	1 as acc_count
 FROM  `accidents` as A
 	LEFT JOIN  `severities` as S 
