@@ -1,4 +1,4 @@
-edicycle
+ediCycle
 ========
 
-ILW project
+ILW 2013 project
