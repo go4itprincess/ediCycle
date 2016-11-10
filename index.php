@@ -3,30 +3,29 @@
 		<title>
 			ediCycle
 		</title>
-		
+
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-		
+
 		<link rel="icon" type="image/x-icon" href="favicon.ico" >
-		<link rel="shortcut icon" type="image/x-icon" href="go4itprincess.modulo.zone.ee/favicon.ico">
-		
+		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
 		<link href="css/penIsYellow.css" rel="stylesheet" type="text/css"  />
-		
+
 		<script src="js/penIsBlack.js" ></script>
 		<script src="js/colorConversion.js" ></script>
 
-		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=APIKEYGOESHERE"></script>
 		<script src="js/map.js" ></script>
-		
+
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-		
-		<script type="text/javascript">
-		<?php include_once("js/analyticstracking.js") ?>
-		</script>
-		
+
+<!--		<script type="text/javascript"> -->
+		<?php include_once("js/analyticstracking.php") ?>
+<!--		</script> -->
+
 	</head>
-	
+
 	<body>
-		
 		<div class="put-box" id="input-form">
 			<div class="title">
 				ediCycle
@@ -50,7 +49,7 @@
 					<div id="destination-box">
 						<input type="text" name="destination"  class="input"/>
 					</div>
-					
+
 					<div id="unit-box">
 						<fieldset>
 							<legend>Unit system:</legend>
@@ -61,12 +60,12 @@
 					</div>
 					<input type="submit" value="Submit" name="submit" onClick="return show_route_json()" class="button" />
 				</form>
-			</div>  
-			
-			<div onClick="switch_inputs()">
-				<img src="images/arrows.svg" id="switch-button" /> 
 			</div>
-			
+
+			<div onClick="switch_inputs()">
+				<img src="images/arrows.svg" id="switch-button" />
+			</div>
+
 		</div>
 		<div class="put-box" id="output-form"></div>
 		<div id="loader">
@@ -86,8 +85,11 @@
 					<span id="ss">
 					Who is the princess?
 					</span>
+				<a href="mailto:feedback@edicycle.eu">Feedback</a>
+				</span>
+			</span>
 		</div>
-		
+
 		<div id="map_canvas"></div>
 
 	</body>

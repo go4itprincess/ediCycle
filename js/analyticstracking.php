@@ -1,3 +1,5 @@
+<script type="text/javascript">
+
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-38976054-2']);
   _gaq.push(['_setDomainName', 'edicycle.eu']);
@@ -8,3 +10,5 @@
     ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
+
+</script>
