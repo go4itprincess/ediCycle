@@ -244,7 +244,7 @@ function getLink() {
 	var origin = document.forms["route_form"]["origin"].value;
 	var destination = document.forms["route_form"]["destination"].value;
 
-	return "https://maps.googleapis.com/maps/api/directions/json?origin=" + origin + "&destination=" + destination + "&sensor=false&mode=bicycling&alternatives=true";
+	return "https://maps.googleapis.com/maps/api/directions/json?origin=" + origin + "&destination=" + destination + "&mode=bicycling&alternatives=true&key=APIKEYGOESHERE";
 }
 
 function showForm () {
