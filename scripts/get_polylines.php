@@ -76,7 +76,6 @@ function getRoutes ($params, $mode, $alternatives, &$bounds) {
 		.	"key=APIKEYGOESHERE"
 		.	"origin="	.	$params['origin']
 		.	"&destination="	.	$params['destination']
-		.	"&sensor=false"
 		.	"&mode=" 	.	$mode
 		.	"&region=uk"
 		.	"&alternatives=" . 	$alternatives
