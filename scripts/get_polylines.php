@@ -74,7 +74,7 @@ function getRoutes ($params, $mode, $alternatives, &$bounds) {
 
 	$url = "https://maps.googleapis.com/maps/api/directions/json?"
 		.	"key=APIKEYGOESHERE"
-		.	"origin="	.	$params['origin']
+		.	"&origin="	.	$params['origin']
 		.	"&destination="	.	$params['destination']
 		.	"&mode=" 	.	$mode
 		.	"&region=uk"
